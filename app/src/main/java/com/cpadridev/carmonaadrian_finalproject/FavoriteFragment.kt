@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cpadridev.carmonaadrian_finalproject.connection.Api
 import com.cpadridev.carmonaadrian_finalproject.connection.Client
 import com.cpadridev.carmonaadrian_finalproject.model.Word
+import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +25,8 @@ class FavoriteFragment : Fragment() {
     private var retrofit: Retrofit? = null
     private var favoriteAdapter: FavoriteAdapter? = null
     private lateinit var sharedPref: SharedPreferences
+    private lateinit var recycler: RecyclerView
+    private lateinit var text: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,8 +35,8 @@ class FavoriteFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.recycler_fragment, container, false)
 
-        val recycler: RecyclerView = view.findViewById(R.id.recyclerView)
-        val txv: TextView = view.findViewById(R.id.txvNoFavorites)
+        recycler = view.findViewById(R.id.recyclerView)
+        text = view.findViewById(R.id.txvNoFavorites)
 
         recycler.setHasFixedSize(true)
 
@@ -50,29 +53,6 @@ class FavoriteFragment : Fragment() {
         getData()
 
         recycler.adapter = favoriteAdapter
-/*
-        if (favoriteAdapter?.itemCount != 0) {
-            txv.text = getString(R.string.information_no_favorites)
-            txv.visibility = View.VISIBLE
-            recycler.visibility = View.GONE
-        } else {
-            txv.visibility = View.GONE
-            recycler.visibility = View.VISIBLE
-        }
-
-        favoriteAdapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-            override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
-                super.onItemRangeChanged(positionStart, itemCount)
-                if (itemCount == 0) {
-                    txv.text = getString(R.string.information_no_favorites)
-                    txv.visibility = View.VISIBLE
-                    recycler.visibility = View.GONE
-                } else {
-                    txv.visibility = View.GONE
-                    recycler.visibility = View.VISIBLE
-                }
-            }
-        })*/
 
         return view
     }

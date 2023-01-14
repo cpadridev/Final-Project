@@ -40,12 +40,10 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.MyViewHolder>() {
         viewHolder.txvEnglish.text = list[position].english
         viewHolder.btnFavorite.isLiked = list[position].liked
         viewHolder.btnFavorite.setOnClickListener {
-            list[position].liked = false
-            notifyItemChanged(list.indexOf(list[position]))
             val editor = sharedPref.edit()
             editor.putBoolean("like_button_state_${list[position].spanish}", false)
             editor.apply()
-            list.remove(list[position])
+            list.removeAt(position)
             notifyDataSetChanged()
         }
     }
