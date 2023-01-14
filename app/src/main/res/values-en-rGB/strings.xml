@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="numbers">Numbers</string>
+    <string name="days">Days</string>
+    <string name="colors">Colors</string>
+    <string name="error_response">Error response</string>
+</resources>

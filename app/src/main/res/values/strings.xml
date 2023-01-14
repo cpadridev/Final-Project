@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name" translatable="false">CarmonaAdrian_FinalProject</string>
+    <string name="numbers">Números</string>
+    <string name="days">Días</string>
+    <string name="colors">Colores</string>
+    <string name="error_response">Fallo en la respuesta</string>
+</resources>
