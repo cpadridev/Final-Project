@@ -4,4 +4,6 @@
     <string name="days">Days</string>
     <string name="colors">Colors</string>
     <string name="error_response">Error response</string>
+    <string name="favorites">Favorites</string>
+    <string name="information_no_favorites">No favorites!</string>
 </resources>

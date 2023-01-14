@@ -28,17 +28,21 @@ class MainActivity : AppCompatActivity() {
 
             when(it.itemId){
                 R.id.menuNumbers -> {
-                    fragment = NumberFragment()
+                    fragment = WordFragment("numbers")
                     fragmentTransaction = true
-                }/*
+                }
                 R.id.menuDays -> {
-                    fragment = DayFragment()
+                    fragment = WordFragment("days")
                     fragmentTransaction = true
                 }
                 R.id.menuColors -> {
-                    fragment = ColorFragment()
+                    fragment = WordFragment("colors")
                     fragmentTransaction = true
-                }*/
+                }
+                R.id.menuFavorites -> {
+                    fragment = FavoriteFragment()
+                    fragmentTransaction = true
+                }
             }
 
             if(fragmentTransaction) {
@@ -67,13 +71,15 @@ class MainActivity : AppCompatActivity() {
 
             return true
         }
+
         return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START))
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
-        else
+        } else {
             super.onBackPressed()
+        }
     }
 }

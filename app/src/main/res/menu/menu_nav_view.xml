@@ -12,5 +12,9 @@
         <item
             android:id="@+id/menuColors"
             android:title="@string/colors"/>
+
+        <item
+            android:id="@+id/menuFavorites"
+            android:title="@string/favorites"/>
     </group>
 </menu>

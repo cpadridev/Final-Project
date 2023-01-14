@@ -1,21 +1,23 @@
 package com.cpadridev.carmonaadrian_finalproject
 
-import com.cpadridev.carmonaadrian_finalproject.model.Number
+import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
+import com.cpadridev.carmonaadrian_finalproject.model.Word
 
-class NumberAdapter : RecyclerView.Adapter<NumberAdapter.MyViewHolder>() {
-    private var list: ArrayList<Number> = ArrayList()
+
+class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.MyViewHolder>() {
+    var list: ArrayList<Word> = ArrayList()
+    private lateinit var sharedPref: SharedPreferences
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val txvSpanish: TextView
         val txvEnglish: TextView
-        val btnFavorite: Button
+        val btnFavorite: com.like.LikeButton
 
         init {
             txvSpanish = view.findViewById(R.id.txvSpanish)
@@ -28,9 +30,7 @@ class NumberAdapter : RecyclerView.Adapter<NumberAdapter.MyViewHolder>() {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.elements_list, viewGroup, false)
 
-        view.setOnClickListener {
-
-        }
+        sharedPref = viewGroup.context.getSharedPreferences("like_button_preferences", Context.MODE_PRIVATE)
 
         return MyViewHolder(view)
     }
@@ -38,34 +38,22 @@ class NumberAdapter : RecyclerView.Adapter<NumberAdapter.MyViewHolder>() {
     override fun onBindViewHolder(viewHolder: MyViewHolder, position: Int) {
         viewHolder.txvSpanish.text = list[position].spanish
         viewHolder.txvEnglish.text = list[position].english
+        viewHolder.btnFavorite.isLiked = list[position].liked
         viewHolder.btnFavorite.setOnClickListener {
-
+            list[position].liked = false
+            notifyItemChanged(list.indexOf(list[position]))
+            val editor = sharedPref.edit()
+            editor.putBoolean("like_button_state_${list[position].spanish}", false)
+            editor.apply()
+            list.remove(list[position])
+            notifyDataSetChanged()
         }
     }
 
     override fun getItemCount() = list.size
 
-    fun addToList(list_: ArrayList<Number>){
-        list.clear()
-        list.addAll(list_)
-
-        notifyDataSetChanged()
-    }
-
-    fun addToList(number: Number){
-        list.add(number)
-
-        notifyDataSetChanged()
-    }
-
-    fun updateList(pos: Int, number: Number){
-        list[pos] = number
-
-        notifyDataSetChanged()
-    }
-
-    fun deleteFromList(pos: Int){
-        list.removeAt(pos)
+    fun addToList(word: Word){
+        list.add(word)
 
         notifyDataSetChanged()
     }
